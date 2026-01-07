@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: http://famsuk.tkc-services.com:5173
+
+# Sitemaps
+Sitemap: http://famsuk.tkc-services.com:5173/sitemap.xml

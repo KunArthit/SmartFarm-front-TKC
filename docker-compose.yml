@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: smart_farm
+    ports:
+      - "3306:3306"
+    networks:
+      - my_network
+
+  elysia_api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.api   # Use your Elysia API Dockerfile here
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DB: smart_farm
+      MYSQL_USER: root
+      MYSQL_PASSWORD: rootpassword
+      NEXT_PUBLIC_API_ENDPOINT: "http://localhost:8080/api"
+    networks:
+      - my_network
+
+  nextjs:
+    build:
+      context: ./nextjs            # Path to your Next.js app folder
+      dockerfile: Dockerfile       # Your Next.js Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      NEXT_PUBLIC_API_ENDPOINT: "http://localhost:8080/api"
+    networks:
+      - my_network
+
+networks:
+  my_network:
