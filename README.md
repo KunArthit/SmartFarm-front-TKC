@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+SmartFarm Frontend (TKC)
+========================
+⚙️ Installation
+----------------
+ก่อนเริ่มต้น ตรวจสอบให้แน่ใจว่ามีการติดตั้ง Bun แล้ว
+ถ้ายังไม่มี สามารถติดตั้งได้โดยคำสั่ง:
 
-## Getting Started
+curl -fsSL https://bun.sh/install | bash
 
-First, run the development server:
+จากนั้นให้ clone โปรเจกต์แล้วติดตั้ง dependencies:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+git clone https://github.com/<your-username>/SmartFarm-frontend-TKC.git
+cd SmartFarm-frontend-TKC
+bun install
 
-Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+🧠 Environment Variables
+-------------------------
+สร้างไฟล์ .env.local ที่ root ของโปรเจกต์
+ตัวอย่าง:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+NEXT_PUBLIC_API_BASE_URL=https://api.smartfarm-tkc.com
+NEXT_PUBLIC_MAP_API_KEY=YOUR_MAP_KEY_HERE
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+💻 Development
+---------------
+เริ่มรันโปรเจกต์ในโหมดพัฒนา:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+bun run dev
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+จะสามารถเข้าถึงได้ที่:
+http://localhost:5173
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+🏗️ Build for Production
+------------------------
+bun run build
+bun run start
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+หรือ deploy ขึ้น production environment เช่น Vercel, Netlify, หรือ Docker
+
+
+🧪 Scripts
+-----------
+คำสั่ง         | คำอธิบาย
+----------------|----------------------------------
+bun run dev     | รันเซิร์ฟเวอร์โหมดพัฒนา
+bun run build   | Build โปรเจกต์สำหรับ production
+bun run start   | เริ่มรันเซิร์ฟเวอร์ production
+bun run lint    | ตรวจสอบ code style และ lint error
+
+
+📦 Deployment
+--------------
+สามารถ deploy ได้หลายรูปแบบ เช่น:
+
+✅ Vercel (แนะนำ)
+- เชื่อม GitHub repository กับ Vercel
+- ระบบจะ build และ deploy อัตโนมัติ
+
+🐳 Docker
+สร้าง Dockerfile เช่น:
+
+FROM oven/bun:latest
+WORKDIR /app
+COPY . .
+RUN bun install
+RUN bun run build
+EXPOSE 3000
+CMD ["bun", "run", "start"]
